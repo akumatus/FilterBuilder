@@ -1,0 +1,52 @@
+/* purple theme */
+.box.box-purple {
+  border-top-color: #6d77b8;
+}
+
+.box.box-solid.box-purple {
+  border: 1px solid #6d77b8;
+}
+
+.box.box-solid.box-purple>.box-header {
+  color: #fff;
+  background-color: #6d77b8;
+}
+
+.skin-purple .main-header .navbar {
+  background-color: #6d77b8;
+}
+
+.btn-purple-outline {
+  color: #6d77b8;
+  background-color: transparent;
+  background-image: none;
+  border-color: #6d77b8;
+}
+
+.btn-purple,
+.btn-purple-outline:hover,
+.btn-purple-outline:active,
+.btn-purple-outline:focus,
+.btn-purple-outline-focus {
+  color: #fff;
+  background-color: #6d77b8;
+  border-color: #6d77b8
+}
+
+.btn-purple:hover,
+.btn-purple:active,
+.btn-purple:focus {
+  color: #fff;
+  background-color: #5f68a2;
+  border-color: #5f68a2
+}
+
+.btn-radius {
+  border-radius: 11px;
+}
+
+.btn-purple-round {
+  padding: 0;
+  width: 20px;
+  height: 20px;
+}
