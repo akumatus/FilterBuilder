@@ -11,14 +11,14 @@
     <div class="col-sm-3">
       <select class="form-control input-sm" v-model="condition">
         <option v-for="option in options.conditions.options" :value="option.value">
-          {{option.text}}
+          {{option.name}}
         </option>
       </select>
     </div>
 
     <div class="col-sm-3">
-      <label class="sr-only">值</label>
-      <input type="text" class="form-control input-sm" v-model="value" placeholder="值">
+      <label class="sr-only">Value</label>
+      <input type="text" class="form-control input-sm" v-model="value" placeholder="Value">
     </div>
 
     <button class="btn btn-xs btn-purple-outline btn-radius btn-purple-round" @click.prevent="deleteSelf()">
