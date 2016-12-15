@@ -1,7 +1,7 @@
 <template>
-  <div class="and-or-template col-sm-10" :class=" isFirst ? 'and-or-first' : '' ">
-    <div class="form-group and-or-top">
-      <div class="col-sm-4">
+  <div class="and-or-template col-xs-12" :class="isFirst ? 'and-or-first' : '' ">
+    <div class="form-group and-or-top col-xs-12">
+      <div class="col-xs-5" style="padding: 0">
         <button class="btn btn-xs btn-purple-outline btn-radius"
                 :class=" isAnd ? 'btn-purple-outline-focus' : '' " @click.prevent="clickAnd">
           &nbsp;And&nbsp;
@@ -12,7 +12,7 @@
         </button>
       </div>
 
-      <div class="col-sm-8 btn-and-or">
+      <div class="col-xs-7 btn-and-or">
         <button v-if="!isFirst" class="btn btn-xs btn-purple pull-right" @click.prevent="deleteSelf()">
           <i class="fa fa-fw fa-close"></i>
         </button>
@@ -27,7 +27,7 @@
     </rule>
 
     <and-or
-      class="and-or-offset"
+      class="and-or-offset col-xs-11"
       v-for="(group, index) in groups" ref="groups"
       :options="options" :key="group" @delete-group="deleteGroup(index)">
     </and-or>
@@ -67,45 +67,84 @@
       clickAnd () {
         this.isAnd = true;
       },
+
       clickOr () {
         this.isAnd = false;
       },
+
       addRule () {
-        var id = new Date().getTime();
+        var id = this.generateId();
         this.rules.push(id);
       },
+
       addGroup () {
-        var id = new Date().getTime();
+        var id = this.generateId();
         this.groups.push(id);
       },
+
       deleteSelf () {
         this.$emit('delete-group');
       },
+
       deleteRule (index) {
         this.rules.splice(index, 1);
       },
+
       deleteGroup (index) {
         this.groups.splice(index, 1);
       },
+
       queryFormStatus () {
         var query = {};
         var rules = this.$refs.rules || {};
         var groups = this.$refs.groups || {};
+        var i, j;
 
-        query.conditions = this.isAnd ? 'and' : 'or';
-        query.rules = [];
-        for(let i = 0; i < rules.length; i++){
-          query.rules.push({
-            //keyname: rules[i].keyname,
-            keyid: rules[i].key,
-            operater: rules[i].condition,
-            value: rules[i].value
-          })
+        query['condition'] = this.isAnd ? 'AND' : 'OR';
+        query['rules'] = [];
+        for(i = 0; i < rules.length; i++){
+          query.rules.push(rules[i].queryFormStatus ());
         }
-        for(let j = 0; j < groups.length; j++){
+        for(j = 0; j < groups.length; j++){
           query.rules[query.rules.length] = groups[j].queryFormStatus();
         }
         return query;
+      },
+
+      fillFormStatus (data) {
+        var i, len;
+        var group = this;
+        group.rules = [];
+        group.groups = [];
+        if(data){
+          group.isAnd = data.condition;
+          len = data.rules.length;
+          for(i = 0; i < len; i++){
+            if(data.rules[i].condition){
+              group.groups.push(group.generateId());
+              (function (i, index) {
+                group.$nextTick(function () {
+                  group.$refs.groups[index].fillFormStatus(data.rules[i]);
+                });
+              })(i, group.groups.length - 1);
+            }
+            else {
+              group.rules.push(group.generateId());
+              (function (i, index) {
+                group.$nextTick(function () {
+                  group.$refs.rules[index].fillRuleStatus(data.rules[i]);
+                });
+              })(i, group.rules.length - 1);
+            }
+          }
+        }
+      },
+
+      generateId () {
+        return 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+          return v.toString(16);
+        });
       }
     }
   }
@@ -134,6 +173,7 @@
     height: calc(50% + 18px);
     border-color: #c0c5e2;
     border-style: solid;
+    z-index: -1;
   }
 
   .and-or-template:before {
@@ -147,11 +187,17 @@
   }
 
   .and-or-first:before,
+  .and-or-first:after,
   .and-or-template:last-child:after {
     border: none;
   }
 
-  .btn-and-or button{
+  .and-or-top,
+  .btn-and-or {
+    padding: 0;
+  }
+
+  .btn-and-or button {
     margin-left: 4px;
   }
 
