@@ -1,78 +1,82 @@
 ## FilterBuilder
 FilterBuilder is an UI component to create queries and filters. Based on vue 2.0 and bootstrap & AdminLTE.css
 
-Use the FilterBuilder to construct queries of arbitrary complexity.Just looks like:
+Use the FilterBuilder to construct queries of arbitrary complexity.
 ![Page](https://github.com/akumatus/FilterBuilder/blob/master/filter.png)
+
+###Usage
+Writing HTML like:
+
+```html
+<and-or :options="options" :isFirst="isFirst" ref="andOr"></and-or>
+```
 
 Passing Pros like:
 ```javascript
-options = {
-  keys: {
-    selected: -99,
-    options: [{
-      name: 'Key',
-      key: -99
+{
+  options: {
+    keys: [{
+      name: 'Choose Key',
+      id: -99
     },{
       name: 'Crash Number',
-      key: 134
-    },{
+      id: 134
+    }{
       name: 'Daily Startup',
-      key: 256
+      id: 256
+    }],
+    operators: [{
+      name: 'Choose Operator',
+      id: -99
+    },{
+      name: 'more',
+      id: '>'
+    },{
+      name: 'equal',
+      id: '='
+    },{
+      name: 'less',
+      id: '<'
     }]
   },
-  conditions: {
-    selected: -99,
-    options: [{
-        name: 'Condition',
-        value: -99
-      },{
-        name: 'more',
-        value: 'more'
-      },{
-        name: 'equal',
-        value: 'equal'
-      },{
-        name: 'less',
-        value: 'less'
-      }]
-  }
+  isFirst: true
 }
 ```
 
-Using `queryFormStatus()` function to get query result in json like:
+Using `queryFormStatus()` function to get query result like:
 ```javascript
 {
-    "conditions": "and", 
+    "conditions": "AND",
     "rules": [
         {
-            "keyid": "2", 
-            "operater": "more", 
+            "key": "2",
+            "operator": "more",
             "value": "1"
-        }, 
+        },
         {
-            "keyid": "2", 
-            "operater": "equal", 
+            "key": "2",
+            "operator": "equal",
             "value": "3"
-        }, 
+        },
         {
-            "conditions": "or", 
+            "conditions": "OR",
             "rules": [
                 {
-                    "keyid": "1", 
-                    "operater": "equal", 
+                    "key": "1",
+                    "operator": "equal",
                     "value": "4"
-                }, 
+                },
                 {
-                    "keyid": "3", 
-                    "operater": "equal", 
+                    "key": "3",
+                    "operator": "equal",
                     "value": "5"
-                }, 
+                },
                 {
-                    "conditions": "and", 
+                    "conditions": "AND",
                     "rules": [
                         {
-                            "keyid": "2", 
-                            "operater": "less", 
+                            "key": "2",
+                            "operator": "less",
                             "value": "6"
                         }
                     ]
