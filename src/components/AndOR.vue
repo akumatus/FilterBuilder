@@ -117,7 +117,7 @@
         group.rules = [];
         group.groups = [];
         if(data){
-          group.isAnd = data.condition;
+          group.isAnd = /and/i.test(data.condition);
           len = data.rules.length;
           for(i = 0; i < len; i++){
             if(data.rules[i].condition){
@@ -161,7 +161,7 @@
     /* width: 100%; */
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
     border-top-color: #6d77b8;
-    background-color: rgba(217, 222, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.9);
   }
 
   .and-or-template:before,
@@ -173,7 +173,6 @@
     height: calc(50% + 18px);
     border-color: #c0c5e2;
     border-style: solid;
-    z-index: -1;
   }
 
   .and-or-template:before {
