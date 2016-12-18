@@ -85,7 +85,6 @@
     height: calc(50% + 15px);
     border-color: #c0c5e2;
     border-style: solid;
-    z-index: -1;
   }
 
   .and-or-rule:before {
