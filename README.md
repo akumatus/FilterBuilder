@@ -2,6 +2,9 @@
 FilterBuilder is an UI component to create queries and filters. Based on vue 2.0 and bootstrap & AdminLTE.css
 
 Use the FilterBuilder to construct queries of arbitrary complexity.
+
+:chestnut: Here is a [DEMO](https://akumatus.github.io/FilterBuilder/)
+
 ![Page](https://github.com/akumatus/FilterBuilder/blob/master/filter.png)
 
 ###Usage
@@ -86,3 +89,7 @@ Using `queryFormStatus()` function to get query result like:
     ]
 }
 ```
+
+Using `fillFormStatus()` function to fill query into this component.
+
+:cherries:Form validation & other addtional function is still in develop. 
