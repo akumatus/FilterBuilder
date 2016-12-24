@@ -24,7 +24,7 @@ Passing Pros like:
     },{
       name: 'Crash Number',
       id: 134
-    }{
+    },{
       name: 'Daily Startup',
       id: 256
     }],
